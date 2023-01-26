@@ -3,10 +3,10 @@ package com.pasztork.io
 import com.pasztork.data.Size
 
 class InputHandler(args: Array<String>) {
-    private val inputPath: String
-    private val outputPath: String
-    private val kernelSize: Size<Int>
-    private val outputSize: Size<Int>
+    val inputPath: String
+    val outputPath: String
+    val kernelSize: Size<Int>
+    val outputSize: Size<Int>
 
     init {
         require(args.filter {
