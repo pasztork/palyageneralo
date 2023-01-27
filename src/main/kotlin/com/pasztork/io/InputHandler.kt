@@ -34,6 +34,12 @@ class InputHandler(args: Array<String>) {
             .substringAfter("output-size=").split("x").map(String::toInt)
         require(outputSizeList.size >= 2)
         outputSize = Size(outputSizeList[0], outputSizeList[1])
+
+        require(
+            outputSize.x % kernelSize.x == 0 && outputSize.y % kernelSize.y == 0
+        ) {
+            "The kernel and output size you provided do not work together!"
+        }
     }
 
     override fun toString(): String {
