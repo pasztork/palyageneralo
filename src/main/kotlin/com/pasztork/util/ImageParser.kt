@@ -13,7 +13,7 @@ class ImageParser(
     init {
         parseInputImage()
         rotateSubImages()
-        cleanUp()
+        removeDuplicates()
         saveAll()
     }
 
@@ -40,12 +40,14 @@ class ImageParser(
     private fun rotateSubImages() {
         val rotatedImages = mutableListOf<BufferedImage>()
         subImages.forEach {
-            val rotate90 = rotateRight(it)
-            val rotate180 = rotateRight(rotate90)
-            val rotate270 = rotateRight(rotate180)
+            val rotated90 = rotateRight(it)
+            val rotated180 = rotateRight(rotated90)
+            val rotated270 = rotateRight(rotated180)
             rotatedImages.addAll(
                 mutableListOf(
-                    rotate90, rotate180, rotate270
+                    rotated90,
+                    rotated180,
+                    rotated270
                 )
             )
         }
@@ -53,7 +55,6 @@ class ImageParser(
     }
 
     private fun rotateRight(source: BufferedImage): BufferedImage {
-        // image will be rotated, so width and height will be changed up
         val width = source.height
         val height = source.width
         val destination =
@@ -66,14 +67,11 @@ class ImageParser(
         return destination
     }
 
-    private fun cleanUp() {
+    private fun removeDuplicates() {
         val uniqueImages = mutableListOf<BufferedImage>()
         subImages.forEach { bufferedImage ->
             if (uniqueImages.filter {
-                    areDifferent(
-                        bufferedImage,
-                        it
-                    )
+                    areDifferent(bufferedImage, it)
                 }.size == uniqueImages.size) {
                 uniqueImages.add(bufferedImage)
             }
@@ -82,23 +80,20 @@ class ImageParser(
         subImages.addAll(uniqueImages)
     }
 
-    private fun areDifferent(bi1: BufferedImage, bi2: BufferedImage): Boolean {
-        return !getPixelValues(bi1).contentEquals(getPixelValues(bi2))
-    }
+    private fun areDifferent(bi1: BufferedImage, bi2: BufferedImage) =
+        !getPixelValues(bi1).contentEquals(getPixelValues(bi2))
 
-    private fun getPixelValues(bi: BufferedImage): IntArray {
-        val pixels = IntArray(bi.width * bi.height)
+    private fun getPixelValues(bufferedImage: BufferedImage): IntArray {
+        val pixels = IntArray(bufferedImage.width * bufferedImage.height)
         pixels.forEachIndexed { index, _ ->
-            val x = index / bi.width
-            val y = index % bi.height
-            pixels[index] = bi.getRGB(x, y)
+            val x = index / bufferedImage.width
+            val y = index % bufferedImage.height
+            pixels[index] = bufferedImage.getRGB(x, y)
         }
         return pixels
     }
 
-    private fun saveAll() {
-        subImages.forEachIndexed { index, bufferedImage ->
-            ImageIO.write(bufferedImage, "PNG", File("./images/$index.png"))
-        }
+    private fun saveAll() = subImages.forEachIndexed { index, bufferedImage ->
+        ImageIO.write(bufferedImage, "PNG", File("./images/$index.png"))
     }
 }

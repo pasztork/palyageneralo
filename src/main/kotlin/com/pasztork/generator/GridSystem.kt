@@ -7,7 +7,7 @@ class GridSystem(private val size: Size<Int>) {
     private val grid = arrayOfNulls<BufferedImage>(size.x * size.y)
 
     val isFull: Boolean
-        get() = !grid.contains(null)
+        get() = grid.none { it == null }
 
     val bufferedImage: BufferedImage
         get() {
@@ -18,14 +18,10 @@ class GridSystem(private val size: Size<Int>) {
             )
             grid.forEachIndexed { index, bufferedImage ->
                 for (row in 0 until bufferedImage!!.height) {
-                    for (column in 0 until bufferedImage!!.width) {
+                    for (column in 0 until bufferedImage.width) {
                         val x = column + (index % size.x) * bufferedImage.width
                         val y = row + (index / size.x) * bufferedImage.height
-                        image.setRGB(
-                            x, y, bufferedImage.getRGB(
-                                column, row
-                            )
-                        )
+                        image.setRGB(x, y, bufferedImage.getRGB(column, row))
                     }
                 }
             }
@@ -44,9 +40,7 @@ class GridSystem(private val size: Size<Int>) {
             error("No empty field found")
         }
 
-    operator fun get(row: Int, column: Int): BufferedImage? {
-        return grid[size.x * row + column]
-    }
+    operator fun get(row: Int, column: Int) = grid[size.x * row + column]
 
     operator fun set(row: Int, column: Int, bufferedImage: BufferedImage) {
         grid[size.x * row + column] = bufferedImage

@@ -1,8 +1,8 @@
 package com.pasztork.util
 
 class IntPixelArray(private val pixelArray: Array<Int>) : PixelArray {
-    override fun matches(pixelArray: PixelArray): Boolean =
+    override fun matches(pixelArray: PixelArray) =
         this.pixelArray.contentEquals(pixelArray.toArray())
 
-    override fun toArray(): Array<Int> = pixelArray
+    override fun toArray() = pixelArray
 }
