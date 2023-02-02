@@ -2,7 +2,7 @@
 /.gradle
 /build
 /gradle
-/images
+/output-images
 gradle.properties
 gradlew
 gradlew.bat
