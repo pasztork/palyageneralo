@@ -13,21 +13,21 @@ class ImageGenerator(
     val outputImage: BufferedImage
 
     init {
-        outputImage = generateImage(
-            GridSystem(
-                Size(
-                    size.x / subImages[0].width, size.y / subImages[0].height
-                )
+        val gridSystem = GridSystem(
+            Size(
+                size.x / subImages[0].width, size.y / subImages[0].height
             )
-        ).bufferedImage
+        )
+        generateImage(gridSystem)
+        outputImage = gridSystem.bufferedImage
     }
 
-    private fun generateImage(gridSystem: GridSystem): GridSystem {
+    private fun generateImage(gridSystem: GridSystem) {
         if (gridSystem.isFull) {
-            return gridSystem
+            return
         }
         fillNextEmptyField(gridSystem)
-        return generateImage(gridSystem)
+        generateImage(gridSystem)
     }
 
     private fun fillNextEmptyField(gridSystem: GridSystem) {
