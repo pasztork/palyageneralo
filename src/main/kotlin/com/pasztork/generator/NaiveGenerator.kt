@@ -18,7 +18,7 @@ class NaiveGenerator() : GeneratorBase() {
     private fun fillNextEmptyField(gridSystem: GridSystem) {
         val position = gridSystem.nextEmptyField
 
-        val neighborTop: PixelArray = if (position.row == 0) {
+        val neighborTop = if (position.row == 0) {
             NullPixelArray()
         } else {
             gridSystem[position.row - 1, position.column]!!.getRowAsPixelArray(
@@ -26,7 +26,7 @@ class NaiveGenerator() : GeneratorBase() {
             )
         }
 
-        val neighborLeft: PixelArray = if (position.column == 0) {
+        val neighborLeft = if (position.column == 0) {
             NullPixelArray()
         } else {
             gridSystem[position.row, position.column - 1]!!.getColumnAsPixelArray(
@@ -39,7 +39,7 @@ class NaiveGenerator() : GeneratorBase() {
     }
 
     private fun findMatchingSubImage(
-        neighborTop: PixelArray, neighborLeft: PixelArray
+        neighborTop: PixelArray<Int>, neighborLeft: PixelArray<Int>
     ): BufferedImage {
         val possibleImages = mutableListOf<BufferedImage>()
         subImages.forEach {

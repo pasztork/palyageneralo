@@ -14,7 +14,8 @@ class ImageParser(
         parseInputImage()
         rotateSubImages()
         removeDuplicates()
-        saveAll()
+        // uncomment if you want to see what sub-images the program works with
+        // saveAll()
     }
 
     private fun parseInputImage() {

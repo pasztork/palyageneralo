@@ -1,6 +1,6 @@
 package com.pasztork.image
 
-interface PixelArray {
-    fun matches(pixelArray: PixelArray): Boolean
-    fun toArray(): Array<Int>
+interface PixelArray<T> {
+    fun matches(pixelArray: PixelArray<T>): Boolean
+    fun toArray(): Array<T>
 }
