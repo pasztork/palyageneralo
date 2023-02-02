@@ -1,28 +1,13 @@
 package com.pasztork.generator
 
-import com.pasztork.data.Size
-import com.pasztork.util.NullPixelArray
-import com.pasztork.util.PixelArray
-import com.pasztork.util.getColumnAsPixelArray
-import com.pasztork.util.getRowAsPixelArray
+import com.pasztork.image.NullPixelArray
+import com.pasztork.image.PixelArray
+import com.pasztork.image.getColumnAsPixelArray
+import com.pasztork.image.getRowAsPixelArray
 import java.awt.image.BufferedImage
 
-class ImageGenerator(
-    private val subImages: List<BufferedImage>, size: Size<Int>
-) {
-    val outputImage: BufferedImage
-
-    init {
-        val gridSystem = GridSystem(
-            Size(
-                size.x / subImages[0].width, size.y / subImages[0].height
-            )
-        )
-        generateImage(gridSystem)
-        outputImage = gridSystem.bufferedImage
-    }
-
-    private fun generateImage(gridSystem: GridSystem) {
+class NaiveGenerator() : GeneratorBase() {
+    override fun generateImage(gridSystem: GridSystem) {
         if (gridSystem.isFull) {
             return
         }

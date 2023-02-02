@@ -1,4 +1,4 @@
-package com.pasztork.util
+package com.pasztork.image
 
 import com.pasztork.data.Size
 import java.awt.image.BufferedImage
@@ -45,9 +45,7 @@ class ImageParser(
             val rotated270 = rotateRight(rotated180)
             rotatedImages.addAll(
                 mutableListOf(
-                    rotated90,
-                    rotated180,
-                    rotated270
+                    rotated90, rotated180, rotated270
                 )
             )
         }

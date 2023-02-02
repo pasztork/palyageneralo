@@ -1,5 +1,6 @@
 package com.pasztork.generator
 
+import com.pasztork.data.GridCoordinate
 import com.pasztork.data.Size
 import java.awt.image.BufferedImage
 

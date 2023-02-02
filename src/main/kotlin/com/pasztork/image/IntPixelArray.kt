@@ -1,4 +1,4 @@
-package com.pasztork.util
+package com.pasztork.image
 
 class IntPixelArray(private val pixelArray: Array<Int>) : PixelArray {
     override fun matches(pixelArray: PixelArray) =

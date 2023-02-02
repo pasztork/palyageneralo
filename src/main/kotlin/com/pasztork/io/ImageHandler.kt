@@ -1,11 +1,11 @@
 package com.pasztork.io
 
-import com.pasztork.generator.ImageGenerator
-import com.pasztork.util.ImageParser
+import com.pasztork.generator.GeneratorBase
+import com.pasztork.image.ImageParser
 import java.io.File
 import javax.imageio.ImageIO
 
-class ImageHandler(inputHandler: InputHandler) {
+class ImageHandler(inputHandler: InputHandler, generator: GeneratorBase) {
     init {
         val inputFile = File(inputHandler.inputPath)
         require(inputFile.exists()) {
@@ -15,9 +15,10 @@ class ImageHandler(inputHandler: InputHandler) {
         val imageParser =
             ImageParser(ImageIO.read(inputFile), inputHandler.kernelSize)
 
-        val outputImage = ImageGenerator(
-            imageParser.subImages, inputHandler.outputSize
-        ).outputImage
-        ImageIO.write(outputImage, "PNG", File(inputHandler.outputPath))
+        generator.init(imageParser.subImages, inputHandler.outputSize)
+        generator.generate()
+        ImageIO.write(
+            generator.outputImage, "PNG", File(inputHandler.outputPath)
+        )
     }
 }
