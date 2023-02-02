@@ -5,6 +5,9 @@ import java.awt.image.BufferedImage
 import java.io.File
 import javax.imageio.ImageIO
 
+/**
+ * Cuts out pieces of the input pattern.
+ */
 class ImageParser(
     private val inputImage: BufferedImage, private val kernelSize: Size<Int>
 ) {
@@ -18,6 +21,9 @@ class ImageParser(
         // saveAll()
     }
 
+    /**
+     * Cuts pieces out of input pattern.
+     */
     private fun parseInputImage() {
         val width = inputImage.width
         val height = inputImage.height
@@ -38,6 +44,9 @@ class ImageParser(
         }
     }
 
+    /**
+     * Rotates every image that was cut out of the pattern.
+     */
     private fun rotateSubImages() {
         val rotatedImages = mutableListOf<BufferedImage>()
         subImages.forEach {
@@ -53,6 +62,9 @@ class ImageParser(
         subImages.addAll(rotatedImages)
     }
 
+    /**
+     * Rotates an image by 90 degrees to the right.
+     */
     private fun rotateRight(source: BufferedImage): BufferedImage {
         val width = source.height
         val height = source.width
@@ -66,6 +78,9 @@ class ImageParser(
         return destination
     }
 
+    /**
+     * Removes any duplicate images. (i.e. one colored images)
+     */
     private fun removeDuplicates() {
         val uniqueImages = mutableListOf<BufferedImage>()
         subImages.forEach { bufferedImage ->
@@ -79,9 +94,15 @@ class ImageParser(
         subImages.addAll(uniqueImages)
     }
 
+    /**
+     * Checks if two images are different.
+     */
     private fun areDifferent(bi1: BufferedImage, bi2: BufferedImage) =
         !getPixelValues(bi1).contentEquals(getPixelValues(bi2))
 
+    /**
+     * Creates an array of integers from a buffered image.
+     */
     private fun getPixelValues(bufferedImage: BufferedImage): IntArray {
         val pixels = IntArray(bufferedImage.width * bufferedImage.height)
         pixels.forEachIndexed { index, _ ->
@@ -92,6 +113,9 @@ class ImageParser(
         return pixels
     }
 
+    /**
+     * Saves all sub-images to ./images directory.
+     */
     private fun saveAll() = subImages.forEachIndexed { index, bufferedImage ->
         ImageIO.write(bufferedImage, "PNG", File("./images/$index.png"))
     }

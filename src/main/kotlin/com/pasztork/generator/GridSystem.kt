@@ -4,12 +4,21 @@ import com.pasztork.data.GridCoordinate
 import com.pasztork.data.Size
 import java.awt.image.BufferedImage
 
+/**
+ * Contains pieces of input patterns.
+ */
 class GridSystem(private val size: Size<Int>) {
     private val grid = arrayOfNulls<BufferedImage>(size.x * size.y)
 
+    /**
+     * Tells if array is full.
+     */
     val isFull: Boolean
         get() = grid.none { it == null }
 
+    /**
+     * Creates BufferedImage out of elements of the array.
+     */
     val bufferedImage: BufferedImage
         get() {
             val image = BufferedImage(
@@ -29,6 +38,9 @@ class GridSystem(private val size: Size<Int>) {
             return image
         }
 
+    /**
+     * Finds the very next empty field (from top to bottom, left to right).
+     */
     val nextEmptyField: GridCoordinate
         get() {
             for (row in 0 until size.y) {
@@ -41,8 +53,14 @@ class GridSystem(private val size: Size<Int>) {
             error("No empty field found")
         }
 
+    /**
+     * Gets one element of the array.
+     */
     operator fun get(row: Int, column: Int) = grid[size.x * row + column]
 
+    /**
+     * Sets one element of the array.
+     */
     operator fun set(row: Int, column: Int, bufferedImage: BufferedImage) {
         grid[size.x * row + column] = bufferedImage
     }

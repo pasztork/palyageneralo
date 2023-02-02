@@ -2,6 +2,9 @@ package com.pasztork.io
 
 import com.pasztork.data.Size
 
+/**
+ * Handles input from command line.
+ */
 class InputHandler(args: Array<String>) {
     val inputPath: String
     val outputPath: String
@@ -42,6 +45,9 @@ class InputHandler(args: Array<String>) {
         }
     }
 
+    /**
+     * Prints args in formatted String.
+     */
     override fun toString(): String {
         return """
             |in=$inputPath

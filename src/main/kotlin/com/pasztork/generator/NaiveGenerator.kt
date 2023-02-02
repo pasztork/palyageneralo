@@ -6,7 +6,14 @@ import com.pasztork.image.getColumnAsPixelArray
 import com.pasztork.image.getRowAsPixelArray
 import java.awt.image.BufferedImage
 
+/**
+ * My naive implementation of map generation.
+ */
 class NaiveGenerator() : GeneratorBase() {
+
+    /**
+     * Generator function.
+     */
     override fun generateImage(gridSystem: GridSystem) {
         if (gridSystem.isFull) {
             return
@@ -15,6 +22,9 @@ class NaiveGenerator() : GeneratorBase() {
         generateImage(gridSystem)
     }
 
+    /**
+     * Fills the very next empty field in the grid.
+     */
     private fun fillNextEmptyField(gridSystem: GridSystem) {
         val position = gridSystem.nextEmptyField
 
@@ -38,6 +48,9 @@ class NaiveGenerator() : GeneratorBase() {
             findMatchingSubImage(neighborTop, neighborLeft)
     }
 
+    /**
+     * Returns an image that matches the current grid system.
+     */
     private fun findMatchingSubImage(
         neighborTop: PixelArray<Int>, neighborLeft: PixelArray<Int>
     ): BufferedImage {

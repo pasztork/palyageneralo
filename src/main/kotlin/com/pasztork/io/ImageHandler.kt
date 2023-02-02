@@ -5,6 +5,9 @@ import com.pasztork.image.ImageParser
 import java.io.File
 import javax.imageio.ImageIO
 
+/**
+ * This class reads and writes images from and to the disk.
+ */
 class ImageHandler(inputHandler: InputHandler, generator: GeneratorBase) {
     init {
         val inputFile = File(inputHandler.inputPath)
