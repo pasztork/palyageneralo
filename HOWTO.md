@@ -10,11 +10,11 @@ mappába beleraktam 3 lehetséges mintát.
 Az egyes mintákat a következő parancssori argumentumokkal próbálhatjuk ki (de nem csak ezekkel):
 
 1. [caves_in.png](./images/caves_in.png) minta használatára példa:
-    * in=./images/caves_in.png out=caves_out.png kernel-size=16x16 output-size=1024x1024
+    * `in=./images/caves_in.png out=caves_out.png kernel-size=16x16 output-size=1024x1024`
 2. [circuit_in.png](./images/circuit_in.png) minta használatára példa:
-    * in=./images/circuit_in.png out=circuit_out.png kernel-size=16x16 output-size=512x512
+    * `in=./images/circuit_in.png out=circuit_out.png kernel-size=16x16 output-size=512x512`
 3. [road_in.png](./images/road_in.png) minta használatára példa:
-    * in=./images/road_in.png out=road_out.png kernel-size=512x512 output-size=9216x9216
+    * `in=./images/road_in.png out=road_out.png kernel-size=512x512 output-size=9216x9216`
 
 ## Megjegyzés
 
