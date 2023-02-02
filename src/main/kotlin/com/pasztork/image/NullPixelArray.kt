@@ -7,10 +7,12 @@ class NullPixelArray : PixelArray<Int> {
     /**
      * Returns true.
      */
-    override fun matches(pixelArray: PixelArray<Int>) = true
+    override fun equals(pixelArray: Any?) = pixelArray is PixelArray<*>
 
     /**
      * Returns empty array of integers.
      */
-    override fun toArray() = arrayOf<Int>()
+    override
+
+    fun toArray() = arrayOf<Int>()
 }

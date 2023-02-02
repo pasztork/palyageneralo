@@ -50,9 +50,9 @@ class ImageParser(
     private fun rotateSubImages() {
         val rotatedImages = mutableListOf<BufferedImage>()
         subImages.forEach {
-            val rotated90 = rotateRight(it)
-            val rotated180 = rotateRight(rotated90)
-            val rotated270 = rotateRight(rotated180)
+            val rotated90 = it.rotateRight()
+            val rotated180 = rotated90.rotateRight()
+            val rotated270 = rotated180.rotateRight()
             rotatedImages.addAll(
                 mutableListOf(
                     rotated90, rotated180, rotated270
@@ -60,22 +60,6 @@ class ImageParser(
             )
         }
         subImages.addAll(rotatedImages)
-    }
-
-    /**
-     * Rotates an image by 90 degrees to the right.
-     */
-    private fun rotateRight(source: BufferedImage): BufferedImage {
-        val width = source.height
-        val height = source.width
-        val destination =
-            BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB)
-        val graphics = destination.createGraphics()
-        graphics.rotate(
-            Math.toRadians(90.0), width.toDouble() / 2, height.toDouble() / 2
-        )
-        graphics.drawImage(source, null, 0, 0)
-        return destination
     }
 
     /**
@@ -98,20 +82,7 @@ class ImageParser(
      * Checks if two images are different.
      */
     private fun areDifferent(bi1: BufferedImage, bi2: BufferedImage) =
-        !getPixelValues(bi1).contentEquals(getPixelValues(bi2))
-
-    /**
-     * Creates an array of integers from a buffered image.
-     */
-    private fun getPixelValues(bufferedImage: BufferedImage): IntArray {
-        val pixels = IntArray(bufferedImage.width * bufferedImage.height)
-        pixels.forEachIndexed { index, _ ->
-            val x = index / bufferedImage.width
-            val y = index % bufferedImage.height
-            pixels[index] = bufferedImage.getRGB(x, y)
-        }
-        return pixels
-    }
+        !bi1.getPixelValuesAsArray().contentEquals(bi2.getPixelValuesAsArray())
 
     /**
      * Saves all sub-images to ./images directory.

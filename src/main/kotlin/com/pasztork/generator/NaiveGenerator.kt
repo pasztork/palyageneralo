@@ -58,7 +58,7 @@ class NaiveGenerator() : GeneratorBase() {
         subImages.forEach {
             val topArray = it.getRowAsPixelArray(0)
             val leftArray = it.getColumnAsPixelArray(0)
-            if (neighborTop.matches(topArray) && neighborLeft.matches(leftArray)) {
+            if (neighborTop == topArray && neighborLeft == leftArray) {
                 possibleImages.add(it)
             }
         }
